@@ -54,7 +54,7 @@ class RouterOSConfig:
             first_line = first_line.strip("#").strip()
             timestamp, *_ = first_line.split(" by ")
             timestamp = dateutil.parser.parse(timestamp)
-            router_os_version = re.search(r"(\d\.[\d\.]+\d)", first_line).group(1)
+            router_os_version = re.search(r"(\d\.[\d\.]*\d)", first_line).group(1)
             router_os_version = tuple([int(x) for x in router_os_version.split(".")])
         else:
             timestamp = None
