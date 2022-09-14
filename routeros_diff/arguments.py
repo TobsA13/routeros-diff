@@ -323,8 +323,14 @@ class ArgList(list):
 
         for k in old_keys:
             if k in removed:
-                # Removed keys are given a blank value
-                diffed_arg_list.append(Arg(key=f"{k}", value=""))
+                # If removed key is a bool, invert the value
+                if old[k] == "yes":
+                    diffed_arg_list.append(Arg(key=f"{k}", value="no"))
+                elif old[k] == "no":
+                    diffed_arg_list.append(Arg(key=f"{k}", value="yes"))
+                else:
+                    # Removed keys with are not are bool, are given a blank value
+                    diffed_arg_list.append(Arg(key=f"{k}", value=""))
 
         for k in new_keys:
             if k in added or k in modified:
